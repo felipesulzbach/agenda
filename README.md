@@ -1,2 +1,2 @@
 # agenda
-Criação de uma Agenda de Alunos na linguagem Android.
+Criação de uma Agenda de Alunos.
