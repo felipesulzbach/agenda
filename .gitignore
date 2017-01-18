@@ -32,6 +32,14 @@ captures/
 .Trashes
 .classpath
 .project
+debugger.renderers.xml
+debugger.xml
+diff.xml
+gradle.run.settings.xml
+IntelliLang.xml
+toStringTemplates.xml
+ui.lnf.xml
+web-browsers.xml
 ehthumbs.db
 Thumbs.db
 local.properties
