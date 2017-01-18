@@ -11,25 +11,36 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.felipe.agenda.dao.AlunoDao;
+import br.com.felipe.agenda.model.Aluno;
+
 public class ListaAlunosActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_alunos);
-
-        carregarListaAluno();
         inserir();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        carregarListaAluno();
+    }
+
     private void carregarListaAluno() {
-        final List<String> lista = new ArrayList<String>();
-        for (int count = 0; count <= 10; count++) {
-            lista.add("Nome " + count);
-        }
+        final AlunoDao dao = AlunoDao.create(this);
+        final List<Aluno> lista = dao.buscarAlunoList();
+        dao.close();
 
         ListView alunoList = (ListView) findViewById(R.id.lista_aluno);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lista);
+        ArrayAdapter<Aluno> adapter = new ArrayAdapter<Aluno>(this, android.R.layout.simple_list_item_1, lista);
         alunoList.setAdapter(adapter);
     }
 
