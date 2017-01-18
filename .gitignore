@@ -1,3 +1,5 @@
+_windows/
+inspection/
 bin/
 gen/
 out/
@@ -14,7 +16,7 @@ captures/
 .navigation/
 .idea/.name
 .idea/compiler.xml
-.idea/copyright/profiles_settings.xml
+.idea/copyright/
 .idea/encodings.xml
 .idea/libraries
 .idea/misc.xml
@@ -30,6 +32,14 @@ captures/
 .Trashes
 .classpath
 .project
+debugger.renderers.xml
+debugger.xml
+diff.xml
+gradle.run.settings.xml
+IntelliLang.xml
+toStringTemplates.xml
+ui.lnf.xml
+web-browsers.xml
 ehthumbs.db
 Thumbs.db
 local.properties

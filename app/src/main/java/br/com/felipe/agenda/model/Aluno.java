@@ -41,6 +41,15 @@ public class Aluno implements Serializable {
         return result;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder stb = new StringBuilder();
+        stb.append(getId());
+        stb.append(" - ");
+        stb.append(getNome());
+        return stb.toString();
+    }
+
     private Aluno(){}
 
     public Long getId() {

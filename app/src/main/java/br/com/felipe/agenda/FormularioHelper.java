@@ -6,43 +6,32 @@ import android.widget.RatingBar;
 import java.math.BigDecimal;
 
 import br.com.felipe.agenda.model.Aluno;
+import br.com.felipe.agenda.util.AndroidUtil;
 
 /**
  * Created by felipe on 11/01/2017.
  */
 public class FormularioHelper {
 
-    private FormularioHelper() {}
+    private FormularioActivity activity;
 
-    public static synchronized FormularioHelper create() {
-        return new FormularioHelper();
+    private FormularioHelper(FormularioActivity activity) {
+        this.activity = activity;
     }
 
-    public static Aluno pegarAluno(FormularioActivity activity) {
+    public static synchronized FormularioHelper create(FormularioActivity activity) {
+        return new FormularioHelper(activity);
+    }
+
+    public Aluno pegarAluno() {
         return Aluno.create().withId(1L)
-                .withNome(obterValorCampoString(activity, R.id.formulario_nome))
-                .withSexo(obterValorCampoString(activity, R.id.formulario_sexo))
-                .withIdade(obterValorCampoInteger(activity, R.id.formulario_idade))
-                .withEndereco(obterValorCampoString(activity, R.id.formulario_endereco))
-                .withFone(obterValorCampoString(activity, R.id.formulario_telefone))
-                .withSite(obterValorCampoString(activity, R.id.formulario_site))
-                .withEmail(obterValorCampoString(activity, R.id.formulario_email))
-                .withNota(obterValorCampoBigDecimal(activity, R.id.formulario_nota));
-    }
-
-    private static String obterValorCampoString(FormularioActivity activity, final int id) {
-        return ((EditText) activity.findViewById(id)).getText().toString().trim();
-    }
-
-    private static Integer obterValorCampoInteger(FormularioActivity activity, final int id) {
-        try {
-            return Integer.parseInt(obterValorCampoString(activity, id));
-        } catch (NumberFormatException ex) {
-            return null;
-        }
-    }
-
-    private static BigDecimal obterValorCampoBigDecimal(FormularioActivity activity, final int id) {
-        return new BigDecimal(((RatingBar) activity.findViewById(id)).getProgress());
+                .withNome(AndroidUtil.obterValorCampoString(this.activity, R.id.formulario_nome))
+                .withSexo(AndroidUtil.obterValorCampoString(this.activity, R.id.formulario_sexo))
+                .withIdade(AndroidUtil.obterValorCampoInteger(this.activity, R.id.formulario_idade))
+                .withEndereco(AndroidUtil.obterValorCampoString(this.activity, R.id.formulario_endereco))
+                .withFone(AndroidUtil.obterValorCampoString(this.activity, R.id.formulario_telefone))
+                .withSite(AndroidUtil.obterValorCampoString(this.activity, R.id.formulario_site))
+                .withEmail(AndroidUtil.obterValorCampoString(this.activity, R.id.formulario_email))
+                .withNota(AndroidUtil.obterValorCampoBigDecimal(this.activity, R.id.formulario_nota));
     }
 }

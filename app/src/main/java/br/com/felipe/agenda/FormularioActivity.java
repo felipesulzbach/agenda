@@ -6,11 +6,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import br.com.felipe.agenda.dao.AlunoDao;
 import br.com.felipe.agenda.model.Aluno;
 
 public class FormularioActivity extends AppCompatActivity {
 
-    private FormularioHelper helper = FormularioHelper.create();
+    private FormularioHelper helper = FormularioHelper.create(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,11 @@ public class FormularioActivity extends AppCompatActivity {
     }
 
     private void salvar() {
-        final Aluno aluno = this.helper.pegarAluno(this);
+        final Aluno aluno = this.helper.pegarAluno();
+        final AlunoDao dao = AlunoDao.create(this);
+        dao.inserir(aluno);
+        dao.close();
+
         Toast.makeText(this, "Aluno " + aluno.getNome() + " salvo com Sucesso!", Toast.LENGTH_SHORT).show();
         finish();
     }
