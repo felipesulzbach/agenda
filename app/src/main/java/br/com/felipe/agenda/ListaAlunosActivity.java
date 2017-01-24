@@ -28,10 +28,11 @@ public class ListaAlunosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_alunos);
 
-        inserir();
-
         this.alunoList = (ListView) findViewById(R.id.lista_aluno);
+
+        selecionarParaInsercao();
         registerForContextMenu(this.alunoList);
+        selecionarParaEdicao();
     }
 
     @Override
@@ -47,19 +48,19 @@ public class ListaAlunosActivity extends AppCompatActivity {
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, final ContextMenu.ContextMenuInfo menuInfo) {
-        MenuItem remove = menu.add("Remover");
+        final MenuItem remove = menu.add("Remover");
         remove.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-                Aluno aluno = (Aluno) alunoList.getItemAtPosition(info.position);
+                final Aluno aluno = (Aluno) alunoList.getItemAtPosition(info.position);
                 final AlunoDao dao = AlunoDao.create(ListaAlunosActivity.this);
                 dao.excluir(aluno);
                 dao.close();
 
                 carregarListaAluno();
 
-                Toast.makeText(ListaAlunosActivity.this, "Aluno " + aluno.getNome() + "removido com Sucesso!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ListaAlunosActivity.this, "Aluno " + aluno.getNome() + " removido com Sucesso!", Toast.LENGTH_SHORT).show();
                 return false;
             }
         });
@@ -67,21 +68,29 @@ public class ListaAlunosActivity extends AppCompatActivity {
 
     private void carregarListaAluno() {
         final AlunoDao dao = AlunoDao.create(this);
-        final List<Aluno> lista = dao.buscarAlunoList();
+        this.alunoList.setAdapter(new ArrayAdapter<Aluno>(this, android.R.layout.simple_list_item_1, dao.buscarAlunoList()));
         dao.close();
-
-
-        ArrayAdapter<Aluno> adapter = new ArrayAdapter<Aluno>(this, android.R.layout.simple_list_item_1, lista);
-        this.alunoList.setAdapter(adapter);
     }
 
-    private void inserir() {
-        Button btnInserir = (Button) findViewById(R.id.lista_aluno_btn_inserir);
+    private void selecionarParaInsercao() {
+        final Button btnInserir = (Button) findViewById(R.id.lista_aluno_btn_inserir);
         btnInserir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentToFormulario = new Intent(ListaAlunosActivity.this, FormularioActivity.class);
-                startActivity(intentToFormulario);
+                final Intent intent = new Intent(ListaAlunosActivity.this, FormularioActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void selecionarParaEdicao() {
+        this.alunoList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                final Aluno aluno = (Aluno) alunoList.getItemAtPosition(position);
+                final Intent intent = new Intent(ListaAlunosActivity.this, FormularioActivity.class);
+                intent.putExtra("aluno", aluno);
+                startActivity(intent);
             }
         });
     }

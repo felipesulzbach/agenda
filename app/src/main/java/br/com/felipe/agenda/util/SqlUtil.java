@@ -26,21 +26,24 @@ public class SqlUtil {
         }
     }
 
-    public static String[] retornarValorFiltros(Object ...params) {
-        if (params == null) {
-            return null;
-        }
-
+    public static String[] retornarValorFiltros(final Object ...params) {
         final List<String> strList = new ArrayList<String>();
         for (Object param: params) {
+            if (param == null) {
+                break;
+            }
             strList.add(param.toString());
         }
 
-        return strList.toArray(new String[strList.size()]);
+        if (strList.size() == 0) {
+            return null;
+        } else {
+            return strList.toArray(new String[strList.size()]);
+        }
     }
 
-    public static String retornarFiltros(Map<String, ClausulaEnum> filtros) {
-        if (filtros == null) {
+    public static String retornarFiltros(final Map<String, ClausulaEnum> filtros) {
+        if (filtros == null || filtros.isEmpty()) {
             return null;
         }
 

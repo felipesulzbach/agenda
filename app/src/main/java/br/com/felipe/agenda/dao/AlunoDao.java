@@ -13,6 +13,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import br.com.felipe.agenda.bean.ExcluiPO;
+import br.com.felipe.agenda.bean.SalvaPO;
 import br.com.felipe.agenda.model.Aluno;
 import br.com.felipe.agenda.util.AndroidUtil;
 import br.com.felipe.agenda.util.NumberUtil;
@@ -91,33 +93,48 @@ public class AlunoDao extends SQLiteOpenHelper {
         return lista;
     }
 
-    public void inserir(Aluno aluno) {
+    public void salvar(final Aluno aluno, final boolean flInserir) {
         try {
-            ContentValues values = new ContentValues();
-            values.put("nome", aluno.getNome());
-            values.put("sexo", aluno.getSexo());
-            values.put("idade", aluno.getIdade());
-            values.put("endereco", aluno.getEndereco());
-            values.put("fone", aluno.getFone());
-            values.put("site", aluno.getSite());
-            values.put("email", aluno.getEmail());
-            values.put("nota", aluno.getNota().doubleValue());
-
-            SQLiteDatabase db = getWritableDatabase();
-            db.insert("aluno", null, values);
+            AndroidUtil.salvar(SalvaPO.create()
+                    .withHelper(this)
+                    .withFlIserir(flInserir)
+                    .withNomTabela("aluno")
+                    .withValues(retornarValuesAluno(aluno))
+                    .withFiltros(retornarFiltros())
+                    .withValorFiltros(SqlUtil.retornarValorFiltros(aluno.getId())));
         } catch (SQLException ex) {
             AndroidUtil.tratarExcecao(ex);
         }
     }
 
-    public void excluir(Aluno aluno) {
+    public void excluir(final Aluno aluno) {
         try {
-            SQLiteDatabase db = getWritableDatabase();
-            final Map filtros = new HashMap<String, SqlUtil.ClausulaEnum>();
-            filtros.put("id", null);
-            db.delete("aluno", SqlUtil.retornarFiltros(filtros), SqlUtil.retornarValorFiltros(aluno.getId()));
+            AndroidUtil.excluir(ExcluiPO.create()
+                    .withHelper(this)
+                    .withNomTabela("aluno")
+                    .withFiltros(retornarFiltros())
+                    .withValorFiltros(SqlUtil.retornarValorFiltros(aluno.getId())));
         } catch (SQLException ex) {
             AndroidUtil.tratarExcecao(ex);
         }
+    }
+
+    private static String retornarFiltros() {
+        final Map filtros = new HashMap<String, SqlUtil.ClausulaEnum>();
+        filtros.put("id", null);
+        return SqlUtil.retornarFiltros(filtros);
+    }
+
+    private static ContentValues retornarValuesAluno(final Aluno aluno) {
+        ContentValues values = new ContentValues();
+        values.put("nome", aluno.getNome());
+        values.put("sexo", aluno.getSexo());
+        values.put("idade", aluno.getIdade());
+        values.put("endereco", aluno.getEndereco());
+        values.put("fone", aluno.getFone());
+        values.put("site", aluno.getSite());
+        values.put("email", aluno.getEmail());
+        values.put("nota", aluno.getNota().doubleValue());
+        return values;
     }
 }
