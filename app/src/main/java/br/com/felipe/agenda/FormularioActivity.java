@@ -21,7 +21,7 @@ public class FormularioActivity extends AppCompatActivity {
         setContentView(R.layout.activity_formulario);
 
         this.helper = FormularioHelper.create(this);
-        carregarAluno();
+        this.helper.carregarAluno(this);
     }
 
     @Override
@@ -35,30 +35,10 @@ public class FormularioActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_formulario_ok:
-                salvar();
+                this.helper.salvar();
                 break;
         }
 
         return super.onOptionsItemSelected(item);
     }
-
-    private void carregarAluno() {
-        Intent intent = getIntent();
-        final Aluno aluno = (Aluno) intent.getSerializableExtra("aluno");
-        if (aluno != null) {
-            this.helper.carregarParaEdicao(aluno);
-        }
-    }
-
-    private void salvar() {
-        final AlunoDao dao = AlunoDao.create(this);
-        final Aluno aluno = this.helper.pegarAluno();
-        dao.salvar(aluno, AndroidUtil.isIsercao(aluno.getId()));
-        dao.close();
-
-        Toast.makeText(this, "Aluno " + aluno.getNome() + " salvo com Sucesso!", Toast.LENGTH_SHORT).show();
-        finish();
-    }
-
-
 }

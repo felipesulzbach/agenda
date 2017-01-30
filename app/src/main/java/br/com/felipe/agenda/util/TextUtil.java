@@ -54,4 +54,16 @@ public class TextUtil {
     public static String removeAccents(String str) {
         return Normalizer.normalize(str, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
     }
+
+    public static String adjustUrl(String site) {
+        if (site == null) {
+            return null;
+        }
+
+        if (!site.startsWith("http://")) {
+            site = "http://" + site;
+        }
+
+        return site;
+    }
 }

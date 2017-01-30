@@ -5,6 +5,7 @@ gen/
 out/
 /*/out
 build/
+/*/libs
 /*/build/
 /*/*/build
 /*/.gitignore
@@ -12,7 +13,6 @@ proguard/
 captures/
 /*/*/production
 ._*
-.gradle
 .navigation/
 .idea/.name
 .idea/compiler.xml
@@ -32,6 +32,7 @@ captures/
 .Trashes
 .classpath
 .project
+.gradle
 debugger.renderers.xml
 debugger.xml
 diff.xml
@@ -57,5 +58,4 @@ com_crashlytics_export_strings.xml
 *.ipr
 *~
 *.swp
-*.gradle
 *.pro
