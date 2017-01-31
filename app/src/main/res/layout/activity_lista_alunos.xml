@@ -12,7 +12,7 @@
 
     <Button
         android:id="@+id/lista_aluno_btn_inserir"
-        android:text="+"
+        android:text="@string/btn_insere"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_gravity="center"

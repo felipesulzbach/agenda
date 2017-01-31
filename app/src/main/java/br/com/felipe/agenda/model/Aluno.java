@@ -19,29 +19,6 @@ public class Aluno implements Serializable {
     private BigDecimal nota;
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Aluno aluno = (Aluno) o;
-        if (!id.equals(aluno.id)) {
-            return false;
-        }
-        return nome.equals(aluno.nome);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + nome.hashCode();
-        return result;
-    }
-
-    @Override
     public String toString() {
         StringBuilder stb = new StringBuilder();
         stb.append(getId());
@@ -52,44 +29,12 @@ public class Aluno implements Serializable {
 
     private Aluno(){}
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public String getSexo() {
-        return sexo;
-    }
-
-    public Integer getIdade() {
-        return idade;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public String getFone() {
-        return fone;
-    }
-
-    public String getSite() {
-        return site;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public BigDecimal getNota() {
-        return nota;
-    }
-
     public static synchronized Aluno create() {
         return new Aluno();
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public Aluno withId(final Long id) {
@@ -97,9 +42,17 @@ public class Aluno implements Serializable {
         return this;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
     public Aluno withNome(final String nome) {
         this.nome = nome;
         return this;
+    }
+
+    public String getSexo() {
+        return sexo;
     }
 
     public Aluno withSexo(final String sexo) {
@@ -107,9 +60,17 @@ public class Aluno implements Serializable {
         return this;
     }
 
+    public Integer getIdade() {
+        return idade;
+    }
+
     public Aluno withIdade(final Integer idade) {
         this.idade = idade;
         return this;
+    }
+
+    public String getEndereco() {
+        return endereco;
     }
 
     public Aluno withEndereco(final String endereco) {
@@ -117,9 +78,17 @@ public class Aluno implements Serializable {
         return this;
     }
 
+    public String getFone() {
+        return fone;
+    }
+
     public Aluno withFone(final String fone) {
         this.fone = fone;
         return this;
+    }
+
+    public String getSite() {
+        return site;
     }
 
     public Aluno withSite(final String site) {
@@ -127,9 +96,17 @@ public class Aluno implements Serializable {
         return this;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
     public Aluno withEmail(final String email) {
         this.email = email;
         return this;
+    }
+
+    public BigDecimal getNota() {
+        return nota;
     }
 
     public Aluno withNota(final BigDecimal nota) {

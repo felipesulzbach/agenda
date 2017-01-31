@@ -13,49 +13,49 @@
             android:id="@+id/formulario_nome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nome"
+            android:hint="@string/txt_nome"
             android:inputType="textShortMessage" />
 
         <EditText
             android:id="@+id/formulario_sexo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Sexo"
+            android:hint="@string/txt_sexo"
             android:inputType="textShortMessage" />
 
         <EditText
             android:id="@+id/formulario_idade"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Idade"
+            android:hint="@string/txt_idade"
             android:inputType="numberDecimal" />
 
         <EditText
             android:id="@+id/formulario_endereco"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Endereço"
+            android:hint="@string/txt_ender"
             android:inputType="text"/>
 
         <EditText
             android:id="@+id/formulario_telefone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Telefone"
+            android:hint="@string/txt_fone"
             android:inputType="phone" />
 
         <EditText
             android:id="@+id/formulario_site"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Site"
+            android:hint="@string/txt_site"
             android:inputType="textWebEditText" />
 
         <EditText
             android:id="@+id/formulario_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="E-mail"
+            android:hint="@string/txt_email"
             android:inputType="textEmailAddress" />
 
         <RatingBar
