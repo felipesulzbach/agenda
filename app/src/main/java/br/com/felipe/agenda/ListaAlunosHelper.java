@@ -1,7 +1,10 @@
 package br.com.felipe.agenda;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.support.v4.app.ActivityCompat;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
@@ -63,21 +66,21 @@ public class ListaAlunosHelper {
     }
 
     public void injetarMenuEnviaSms(ContextMenu menu, final Aluno aluno) {
-        final MenuItem enviaSms = menu.add("Enviar SMS");
-        final Intent intent = new Intent(Intent.ACTION_VIEW) ;
-        intent.setData(Uri.parse("sms:" + aluno.getFone()));
+        final MenuItem enviaSms = menu.add(this.activity.getString(R.string.tit_enviar_msg));
+        final Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(this.activity.getString(R.string.app_sms) + aluno.getFone()));
         enviaSms.setIntent(intent);
     }
 
     public void injetarMenuVisitaSite(ContextMenu menu, final Aluno aluno) {
-        final MenuItem visitaSite = menu.add("Visitar Site");
+        final MenuItem visitaSite = menu.add(this.activity.getString(R.string.tit_visit_site));
         final Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(Uri.parse(TextUtil.adjustUrl(aluno.getSite())));
         visitaSite.setIntent(intent);
     }
 
     public void injetarMenuRemove(ContextMenu menu, final Aluno aluno, final ListView alunoList) {
-        final MenuItem remove = menu.add("Remover");
+        final MenuItem remove = menu.add(this.activity.getString(R.string.tit_remover));
         remove.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -87,23 +90,33 @@ public class ListaAlunosHelper {
 
                 carregarListaAluno(alunoList);
 
-                Toast.makeText(activity, "Aluno " + aluno.getNome() + " removido com Sucesso!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, activity.getString(R.string.txt_aluno) + aluno.getNome() + activity.getString(R.string.msg_exclui), Toast.LENGTH_SHORT).show();
                 return false;
             }
         });
     }
 
     public void injetarMenuVisualizaMapa(ContextMenu menu, final Aluno aluno) {
-        MenuItem visualizaMapa = menu.add("Visualizar no mapa");
+        MenuItem visualizaMapa = menu.add(this.activity.getString(R.string.tit_vis_mapa));
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse("geo:0,0?q=" + aluno.getEndereco()));
+        intent.setData(Uri.parse(this.activity.getString(R.string.app_map1) + aluno.getEndereco()));
         visualizaMapa.setIntent(intent);
     }
 
-    public void injetarMenuLigar(ContextMenu menu, Aluno aluno) {
-        MenuItem ligar = menu.add("Ligar");
-        Intent intent = new Intent(Intent.ACTION_CALL);
-        intent.setData(Uri.parse("tel:" + aluno.getFone()));
-        ligar.setIntent(intent);
+    public void injetarMenuLigar(ContextMenu menu, final Aluno aluno) {
+        MenuItem ligar = menu.add(this.activity.getString(R.string.tit_ligar));
+        ligar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CALL_PHONE}, 1);
+                } else {
+                    Intent intent = new Intent(Intent.ACTION_CALL);
+                    intent.setData(Uri.parse(activity.getString(R.string.app_tel) + aluno.getFone()));
+                    activity.startActivity(intent);
+                }
+                return false;
+            }
+        });
     }
 }

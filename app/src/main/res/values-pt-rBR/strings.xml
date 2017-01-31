@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Agenda</string>
+    <string name="app_sms">sms:</string>
+    <string name="app_map1">geo:0,0?q=</string>
+    <string name="app_tel">tel:</string>
+    <string name="tit_enviar_msg">Enviar SMS</string>
+    <string name="tit_visit_site">Visitar Site</string>
+    <string name="tit_remover">Remover</string>
+    <string name="tit_vis_mapa">Visualizar no mapa</string>
+    <string name="tit_ligar">Ligar</string>
+    <string name="txt_aluno">Aluno</string>
+    <string name="msg_exclui"> removido com Sucesso!</string>
+    <string name="msg_salva"> salvo com Sucesso!</string>
+    <string name="btn_insere">+</string>
+    <string name="txt_nome">Nome</string>
+    <string name="txt_sexo">Sexo</string>
+    <string name="txt_idade">Idade</string>
+    <string name="txt_ender">Endereço</string>
+    <string name="txt_fone">Telefone</string>
+    <string name="txt_site">Site</string>
+    <string name="txt_email">E-mail</string>
+</resources>

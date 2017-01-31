@@ -54,7 +54,7 @@ public class FormularioHelper {
         dao.salvar(aluno, AndroidUtil.isIsercao(aluno.getId()));
         dao.close();
 
-        Toast.makeText(this.activity, "Aluno " + aluno.getNome() + " salvo com Sucesso!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this.activity, this.activity.getString(R.string.txt_aluno) + aluno.getNome() + this.activity.getString(R.string.msg_salva), Toast.LENGTH_SHORT).show();
         this.activity.finish();
     }
 

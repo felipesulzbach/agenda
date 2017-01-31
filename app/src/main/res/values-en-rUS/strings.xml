@@ -9,6 +9,7 @@
     <string name="tit_remover">Remove</string>
     <string name="tit_vis_mapa">Show on map</string>
     <string name="tit_ligar">Call</string>
+    <string name="txt_aluno">Student</string>
     <string name="msg_exclui"> removed Successfully!</string>
     <string name="msg_salva"> saved Successfully!</string>
     <string name="btn_insere">+</string>
