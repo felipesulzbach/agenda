@@ -40,7 +40,6 @@ public class AlunoDao extends SQLiteOpenHelper {
             sql.append("CREATE TABLE aluno (");
             sql.append("id INTEGER PRIMARY KEY");
             sql.append(",nome TEXT NOT NULL");
-            sql.append(",sexo TEXT NOT NULL");
             sql.append(",idade INTEGER");
             sql.append(",endereco TEXT");
             sql.append(",fone TEXT");
@@ -78,7 +77,6 @@ public class AlunoDao extends SQLiteOpenHelper {
             while (cursor.moveToNext()) {
                 lista.add(Aluno.create().withId(cursor.getLong(cursor.getColumnIndex("id")))
                         .withNome(cursor.getString(cursor.getColumnIndex("nome")))
-                        .withSexo(cursor.getString(cursor.getColumnIndex("sexo")))
                         .withIdade(cursor.getInt(cursor.getColumnIndex("idade")))
                         .withEndereco(cursor.getString(cursor.getColumnIndex("endereco")))
                         .withFone(cursor.getString(cursor.getColumnIndex("fone")))
@@ -128,7 +126,6 @@ public class AlunoDao extends SQLiteOpenHelper {
     private static ContentValues retornarValuesAluno(final Aluno aluno) {
         ContentValues values = new ContentValues();
         values.put("nome", aluno.getNome());
-        values.put("sexo", aluno.getSexo());
         values.put("idade", aluno.getIdade());
         values.put("endereco", aluno.getEndereco());
         values.put("fone", aluno.getFone());
