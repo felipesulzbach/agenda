@@ -45,6 +45,7 @@ ide.general.xml
 ehthumbs.db
 Thumbs.db
 local.properties
+androidEditors.xml
 /*/local.properties
 com_crashlytics_export_strings.xml
 *.apk

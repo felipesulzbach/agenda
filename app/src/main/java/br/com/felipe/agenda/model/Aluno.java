@@ -10,7 +10,6 @@ public class Aluno implements Serializable {
 
     private Long id;
     private String nome;
-    private String sexo;
     private Integer idade;
     private String endereco;
     private String fone;
@@ -48,15 +47,6 @@ public class Aluno implements Serializable {
 
     public Aluno withNome(final String nome) {
         this.nome = nome;
-        return this;
-    }
-
-    public String getSexo() {
-        return sexo;
-    }
-
-    public Aluno withSexo(final String sexo) {
-        this.sexo = sexo;
         return this;
     }
 

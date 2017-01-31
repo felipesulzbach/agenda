@@ -20,7 +20,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginBottom="16dp"
         android:layout_marginRight="16dp"
-        android:background="@drawable/ball_red"
+        android:background="@drawable/red_circle"
         android:textColor="#ffffff"
         android:textSize="40sp"
         android:elevation="6dp"

@@ -39,7 +39,6 @@ public class FormularioHelper {
     private void carregarParaEdicao(final Aluno aluno) {
         this.alunoSelecionado = aluno;
         AndroidUtil.obterComponenteEditText(this.activity, R.id.formulario_nome).setText(aluno.getNome());
-        AndroidUtil.obterComponenteEditText(this.activity, R.id.formulario_sexo).setText(aluno.getSexo());
         AndroidUtil.obterComponenteEditText(this.activity, R.id.formulario_idade).setText(aluno.getIdade().toString());
         AndroidUtil.obterComponenteEditText(this.activity, R.id.formulario_endereco).setText(aluno.getEndereco());
         AndroidUtil.obterComponenteEditText(this.activity, R.id.formulario_telefone).setText(aluno.getFone());
@@ -60,7 +59,6 @@ public class FormularioHelper {
 
     private Aluno pegarAluno() {
         return this.alunoSelecionado.withNome(AndroidUtil.obterValorCampoString(this.activity, R.id.formulario_nome))
-                .withSexo(AndroidUtil.obterValorCampoString(this.activity, R.id.formulario_sexo))
                 .withIdade(AndroidUtil.obterValorCampoInteger(this.activity, R.id.formulario_idade))
                 .withEndereco(AndroidUtil.obterValorCampoString(this.activity, R.id.formulario_endereco))
                 .withFone(AndroidUtil.obterValorCampoString(this.activity, R.id.formulario_telefone))
