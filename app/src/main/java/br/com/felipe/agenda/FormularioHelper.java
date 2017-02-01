@@ -1,11 +1,11 @@
 package br.com.felipe.agenda;
 
 import android.content.Intent;
-import android.widget.EditText;
-import android.widget.RatingBar;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
-
-import java.math.BigDecimal;
 
 import br.com.felipe.agenda.dao.AlunoDao;
 import br.com.felipe.agenda.model.Aluno;
@@ -65,5 +65,17 @@ public class FormularioHelper {
                 .withSite(AndroidUtil.obterValorCampoString(this.activity, R.id.formulario_site))
                 .withEmail(AndroidUtil.obterValorCampoString(this.activity, R.id.formulario_email))
                 .withNota(AndroidUtil.obterValorCampoBigDecimal(this.activity, R.id.formulario_nota));
+    }
+
+    public void selecionarParaFoto() {
+        final Button btn = (Button) this.activity.findViewById(R.id.formulario_btn_foto);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(AndroidUtil.returnJpg(activity)));
+                activity.startActivity(intent);
+            }
+        });
     }
 }

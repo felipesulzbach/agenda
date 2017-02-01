@@ -1,7 +1,5 @@
 package br.com.felipe.agenda.util;
 
-import android.text.format.DateUtils;
-
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
