@@ -13,7 +13,9 @@ import br.com.felipe.agenda.util.AndroidUtil;
 
 public class FormularioActivity extends AppCompatActivity {
 
+    private static final int CAMERA = 1;
     private FormularioHelper helper;
+    private String caminhoFoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +24,18 @@ public class FormularioActivity extends AppCompatActivity {
 
         this.helper = FormularioHelper.create(this);
         this.helper.carregarAluno(this);
+
+        Button button = findViewById(R.id.formulario_btn_foto);
+        button.setOnClickListener(View.OnClickListener() {
+            @Override
+            public void onClick (View v){
+                final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                caminhoFoto = getExternalFilesDir(null) + "/" + System.currentTimeMillis() + ".jpg";
+                final File file = new File(caminhoFoto);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
+                startActivityForResult(intent, CAMERA);
+            }
+        });
     }
 
     @Override
@@ -40,5 +54,16 @@ public class FormularioActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protect void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK && requestCode == CAMERA) {
+            final ImageView foto = (ImageView) findViewById(R.id.formulario_foto);
+            final Bitmap bitmap = BitmapFactory.decodeFile(caminhoFoto);
+            final Bitmap bitmapReduzido = Bitmap.createScaledBitmap(bitmap, 300, 300, true);
+            foto.setImageBitmap(bitmapReduzido);
+            foto.setScaleType(ImageView.ScaleType.FIT_XY);
+        }
     }
 }
