@@ -64,6 +64,7 @@ public class FormularioActivity extends AppCompatActivity {
             final Bitmap bitmapReduzido = Bitmap.createScaledBitmap(bitmap, 300, 300, true);
             foto.setImageBitmap(bitmapReduzido);
             foto.setScaleType(ImageView.ScaleType.FIT_XY);
+            foto.setTag(cminhoFoto);
         }
     }
 }

@@ -16,6 +16,7 @@ public class Aluno implements Serializable {
     private String site;
     private String email;
     private BigDecimal nota;
+    private String caminhoFoto;
 
     @Override
     public String toString() {
@@ -101,6 +102,15 @@ public class Aluno implements Serializable {
 
     public Aluno withNota(final BigDecimal nota) {
         this.nota = nota;
+        return this;
+    }
+
+    public String getCaminhoFoto() {
+        return caminhoFoto;
+    }
+
+    public Aluno withCaminhoFoto(final String caminhoFoto) {
+        this.caminhoFoto = caminhoFoto;
         return this;
     }
 }

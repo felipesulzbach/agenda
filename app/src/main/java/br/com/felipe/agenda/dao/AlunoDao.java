@@ -46,6 +46,7 @@ public class AlunoDao extends SQLiteOpenHelper {
             sql.append(",site TEXT");
             sql.append(",email TEXT");
             sql.append(",nota REAL");
+            sql.append(",caminho_foto TEXT");
             sql.append(");");
             db.execSQL(sql.toString());
         } catch (SQLException ex) {
@@ -82,7 +83,8 @@ public class AlunoDao extends SQLiteOpenHelper {
                         .withFone(cursor.getString(cursor.getColumnIndex("fone")))
                         .withSite(cursor.getString(cursor.getColumnIndex("site")))
                         .withEmail(cursor.getString(cursor.getColumnIndex("email")))
-                        .withNota(NumberUtil.doubleToBigDecimal(cursor.getDouble(cursor.getColumnIndex("nota")), BigDecimal.ZERO)));
+                        .withNota(NumberUtil.doubleToBigDecimal(cursor.getDouble(cursor.getColumnIndex("nota")), BigDecimal.ZERO))
+                        .withCaminhoFoto(cursor.getString(cursor.getColumnIndex("caminho_foto"))));
             }
             cursor.close();
         } catch (SQLException ex) {
@@ -132,6 +134,7 @@ public class AlunoDao extends SQLiteOpenHelper {
         values.put("site", aluno.getSite());
         values.put("email", aluno.getEmail());
         values.put("nota", aluno.getNota().doubleValue());
+        values.put("caminho_foto", aluno.getCaminhoFoto());
         return values;
     }
 }
