@@ -10,6 +10,7 @@ import android.widget.Toast;
 import br.com.felipe.agenda.dao.AlunoDao;
 import br.com.felipe.agenda.model.Aluno;
 import br.com.felipe.agenda.util.AndroidUtil;
+import br.com.felipe.agenda.util.PerifericoEnum;
 
 /**
  * Created by felipe on 11/01/2017.
@@ -32,11 +33,11 @@ public class FormularioHelper {
         Intent intent = activity.getIntent();
         final Aluno aluno = (Aluno) intent.getSerializableExtra("aluno");
         if (aluno != null) {
-            carregarParaEdicao(aluno);
+            obterValoresFomulario(aluno);
         }
     }
 
-    private void carregarParaEdicao(final Aluno aluno) {
+    private void obterValoresFomulario(final Aluno aluno) {
         this.alunoSelecionado = aluno;
         AndroidUtil.obterComponenteEditText(this.activity, R.id.formulario_nome).setText(aluno.getNome());
         AndroidUtil.obterComponenteEditText(this.activity, R.id.formulario_idade).setText(aluno.getIdade().toString());
@@ -45,6 +46,7 @@ public class FormularioHelper {
         AndroidUtil.obterComponenteEditText(this.activity, R.id.formulario_site).setText(aluno.getSite());
         AndroidUtil.obterComponenteEditText(this.activity, R.id.formulario_email).setText(aluno.getEmail());
         AndroidUtil.obterComponenteRatingBar(this.activity, R.id.formulario_nota).setProgress(aluno.getNota().intValue());
+        AndroidUtil.obterComponenteImageView(this.activity, R.id.formulario_foto).setTag(aluno.getCaminhoFoto()); // verificar
     }
 
     public void salvar() {
@@ -64,20 +66,34 @@ public class FormularioHelper {
                 .withFone(AndroidUtil.obterValorCampoString(this.activity, R.id.formulario_telefone))
                 .withSite(AndroidUtil.obterValorCampoString(this.activity, R.id.formulario_site))
                 .withEmail(AndroidUtil.obterValorCampoString(this.activity, R.id.formulario_email))
-                .withNota(AndroidUtil.obterValorCampoBigDecimal(this.activity, R.id.formulario_nota));
+                .withNota(AndroidUtil.obterValorCampoBigDecimal(this.activity, R.id.formulario_nota)
+                        .withCaminhoFoto(AndroidUtil.obterValorCampoString(this.activity, R.id.formulario_foto)); // verificar
     }
 
-    public void selecionarParaFoto(FormularioActivity activity, String caminhoFoto) {
-        final Button button = activity.findViewById(R.id.formulario_btn_foto);
+    public String retornarCaminhoFoto() {
+        return activity.getExternalFilesDir(null) + "/" + System.currentTimeMillis() + ".jpg";
+    }
+
+    public void selecionarParaFoto(final String caminhoFoto) {
+        final Button button = findViewById(R.id.formulario_btn_foto);
         button.setOnClickListener(View.OnClickListener() {
             @Override
             public void onClick (View v){
                 final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                caminhoFoto = activity.getExternalFilesDir(null) + "/" + System.currentTimeMillis() + ".jpg";
-                final File file = new File(caminhoFoto);
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
-                activity.startActivityForResult(intent, CAMERA);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(caminhoFoto)));
+                activity.startActivityForResult(intent, PerifericoEnum.CAMERA.getValue());
             }
         });
+    }
+
+    public voi carregarImagem(final String caminhoFoto) {
+        if (caminhoFoto != null) {
+            final ImageView foto = AndroidUtil.obterComponenteImageView(this.activity, R.id.formulario_foto);
+            final Bitmap bitmap = BitmapFactory.decodeFile(caminhoFoto);
+            final Bitmap bitmapReduzido = Bitmap.createScaledBitmap(bitmap, 300, 300, true);
+            foto.setImageBitmap(bitmapReduzido);
+            foto.setScaleType(ImageView.ScaleType.FIT_XY);
+            foto.setTag(caminhoFoto);
+        }
     }
 }

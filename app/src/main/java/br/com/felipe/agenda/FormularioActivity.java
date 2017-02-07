@@ -5,9 +5,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import br.com.felipe.agenda.util.PerifericoEnum;
+
 public class FormularioActivity extends AppCompatActivity {
 
-    private static final int CAMERA = 1;
     private FormularioHelper helper;
     private String caminhoFoto;
 
@@ -18,7 +19,8 @@ public class FormularioActivity extends AppCompatActivity {
 
         this.helper = FormularioHelper.create(this);
         this.helper.carregarAluno(this);
-        this.helper.selecionarParaFoto();
+        this.caminhoFoto = this.helper.retornarCaminhoFoto();
+        this.helper.selecionarParaFoto(this.caminhoFoto);
     }
 
     @Override
@@ -41,13 +43,8 @@ public class FormularioActivity extends AppCompatActivity {
 
     @Override
     protect void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == Activity.RESULT_OK && requestCode == CAMERA) {
-            final ImageView foto = (ImageView) findViewById(R.id.formulario_foto);
-            final Bitmap bitmap = BitmapFactory.decodeFile(caminhoFoto);
-            final Bitmap bitmapReduzido = Bitmap.createScaledBitmap(bitmap, 300, 300, true);
-            foto.setImageBitmap(bitmapReduzido);
-            foto.setScaleType(ImageView.ScaleType.FIT_XY);
-            foto.setTag(cminhoFoto);
+        if (resultCode == Activity.RESULT_OK && requestCode == PerifericoEnum.CAMERA.getValue()) {
+            helper.carregarImagem(caminhoFoto);
         }
     }
 }
