@@ -18,19 +18,7 @@ public class FormularioActivity extends AppCompatActivity {
 
         this.helper = FormularioHelper.create(this);
         this.helper.carregarAluno(this);
-        //this.helper.selecionarParaFoto();
-
-        Button button = findViewById(R.id.formulario_btn_foto);
-        button.setOnClickListener(View.OnClickListener() {
-            @Override
-            public void onClick (View v){
-                final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                caminhoFoto = getExternalFilesDir(null) + "/" + System.currentTimeMillis() + ".jpg";
-                final File file = new File(caminhoFoto);
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
-                startActivityForResult(intent, CAMERA);
-            }
-        });
+        this.helper.selecionarParaFoto();
     }
 
     @Override

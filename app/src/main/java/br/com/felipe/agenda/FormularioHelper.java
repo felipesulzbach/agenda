@@ -67,14 +67,16 @@ public class FormularioHelper {
                 .withNota(AndroidUtil.obterValorCampoBigDecimal(this.activity, R.id.formulario_nota));
     }
 
-    public void selecionarParaFoto() {
-        final Button btn = (Button) this.activity.findViewById(R.id.formulario_btn_foto);
-        btn.setOnClickListener(new View.OnClickListener() {
+    public void selecionarParaFoto(FormularioActivity activity, String caminhoFoto) {
+        final Button button = activity.findViewById(R.id.formulario_btn_foto);
+        button.setOnClickListener(View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick (View v){
                 final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(AndroidUtil.returnJpg(activity)));
-                activity.startActivity(intent);
+                caminhoFoto = activity.getExternalFilesDir(null) + "/" + System.currentTimeMillis() + ".jpg";
+                final File file = new File(caminhoFoto);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
+                activity.startActivityForResult(intent, CAMERA);
             }
         });
     }
