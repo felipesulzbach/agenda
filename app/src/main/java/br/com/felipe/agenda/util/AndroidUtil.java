@@ -27,6 +27,10 @@ public class AndroidUtil {
         return (RatingBar) activity.findViewById(id);
     }
 
+    public static ImageView obterComponenteImageView(AppCompatActivity activity, final int id) {
+        return (ImageView) activity.findViewById(id);
+    }
+
     public static String obterValorCampoString(AppCompatActivity activity, final int id) {
         return obterComponenteEditText(activity, id).getText().toString().trim();
     }
