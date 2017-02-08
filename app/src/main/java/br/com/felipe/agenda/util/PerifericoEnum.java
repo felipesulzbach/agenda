@@ -9,7 +9,7 @@ public enum PerifericoEnum {
     CAMERA("Câmera", 1);
 
     private final String label;
-    private final String value;
+    private final int value;
 
     PerifericoEnum(String label, int value) {
         this.label = label;
@@ -20,8 +20,7 @@ public enum PerifericoEnum {
         return label;
     }
 
-    public String getValue() {
+    public int getValue() {
         return value;
     }
-
 }

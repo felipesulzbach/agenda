@@ -1,5 +1,7 @@
 package br.com.felipe.agenda;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -42,7 +44,7 @@ public class FormularioActivity extends AppCompatActivity {
     }
 
     @Override
-    protect void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && requestCode == PerifericoEnum.CAMERA.getValue()) {
             helper.carregarImagem(caminhoFoto);
         }

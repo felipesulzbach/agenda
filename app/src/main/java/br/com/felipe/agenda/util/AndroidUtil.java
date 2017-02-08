@@ -4,6 +4,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 
 import java.io.File;
@@ -33,6 +34,10 @@ public class AndroidUtil {
 
     public static String obterValorCampoString(AppCompatActivity activity, final int id) {
         return obterComponenteEditText(activity, id).getText().toString().trim();
+    }
+
+    public static String obterValorCaminhoFoto(AppCompatActivity activity, final int id) {
+        return (String) activity.findViewById(id).getTag();
     }
 
     public static Integer obterValorCampoInteger(AppCompatActivity activity, final int id) {
