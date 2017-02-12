@@ -1,15 +1,26 @@
 package br.com.felipe.agenda;
 
 import android.content.Intent;
-import android.widget.EditText;
-import android.widget.RatingBar;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
-import java.math.BigDecimal;
+import java.io.File;
+import java.io.IOException;
+import java.util.Date;
 
 import br.com.felipe.agenda.dao.AlunoDao;
 import br.com.felipe.agenda.model.Aluno;
 import br.com.felipe.agenda.util.AndroidUtil;
+import br.com.felipe.agenda.util.PerifericoEnum;
+import br.com.felipe.agenda.util.TimeUtil;
 
 /**
  * Created by felipe on 11/01/2017.
@@ -32,11 +43,11 @@ public class FormularioHelper {
         Intent intent = activity.getIntent();
         final Aluno aluno = (Aluno) intent.getSerializableExtra("aluno");
         if (aluno != null) {
-            carregarParaEdicao(aluno);
+            obterValoresFomulario(aluno);
         }
     }
 
-    private void carregarParaEdicao(final Aluno aluno) {
+    private void obterValoresFomulario(final Aluno aluno) {
         this.alunoSelecionado = aluno;
         AndroidUtil.obterComponenteEditText(this.activity, R.id.formulario_nome).setText(aluno.getNome());
         AndroidUtil.obterComponenteEditText(this.activity, R.id.formulario_idade).setText(aluno.getIdade().toString());
@@ -45,6 +56,7 @@ public class FormularioHelper {
         AndroidUtil.obterComponenteEditText(this.activity, R.id.formulario_site).setText(aluno.getSite());
         AndroidUtil.obterComponenteEditText(this.activity, R.id.formulario_email).setText(aluno.getEmail());
         AndroidUtil.obterComponenteRatingBar(this.activity, R.id.formulario_nota).setProgress(aluno.getNota().intValue());
+        AndroidUtil.obterComponenteImageView(this.activity, R.id.formulario_foto).setTag(aluno.getCaminhoFoto());
     }
 
     public void salvar() {
@@ -64,6 +76,34 @@ public class FormularioHelper {
                 .withFone(AndroidUtil.obterValorCampoString(this.activity, R.id.formulario_telefone))
                 .withSite(AndroidUtil.obterValorCampoString(this.activity, R.id.formulario_site))
                 .withEmail(AndroidUtil.obterValorCampoString(this.activity, R.id.formulario_email))
-                .withNota(AndroidUtil.obterValorCampoBigDecimal(this.activity, R.id.formulario_nota));
+                .withNota(AndroidUtil.obterValorCampoBigDecimal(this.activity, R.id.formulario_nota))
+                .withCaminhoFoto(AndroidUtil.obterValorCaminhoFoto(this.activity, R.id.formulario_foto));
+    }
+
+    public String retornarCaminhoFoto() {
+        return activity.getExternalFilesDir(null) + "/" + System.currentTimeMillis() + ".jpg";
+    }
+
+    public void selecionarParaFoto(final String caminhoFoto) {
+        final Button btn = (Button) this.activity.findViewById(R.id.formulario_btn_foto);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v){
+                final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(activity, BuildConfig.APPLICATION_ID + ".provider", new File(caminhoFoto)));
+                activity.startActivityForResult(intent, PerifericoEnum.CAMERA.getValue());
+            }
+        });
+    }
+
+    public void carregarImagem(final String caminhoFoto) {
+        if (caminhoFoto != null) {
+            final ImageView foto = AndroidUtil.obterComponenteImageView(this.activity, R.id.formulario_foto);
+            final Bitmap bitmap = BitmapFactory.decodeFile(caminhoFoto);
+            final Bitmap bitmapReduzido = Bitmap.createScaledBitmap(bitmap, 300, 300, true);
+            foto.setImageBitmap(bitmapReduzido);
+            foto.setScaleType(ImageView.ScaleType.FIT_XY);
+            foto.setTag(caminhoFoto);
+        }
     }
 }

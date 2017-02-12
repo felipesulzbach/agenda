@@ -1,19 +1,18 @@
 package br.com.felipe.agenda;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import br.com.felipe.agenda.dao.AlunoDao;
-import br.com.felipe.agenda.model.Aluno;
-import br.com.felipe.agenda.util.AndroidUtil;
+import br.com.felipe.agenda.util.PerifericoEnum;
 
 public class FormularioActivity extends AppCompatActivity {
 
     private FormularioHelper helper;
+    private String caminhoFoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +21,8 @@ public class FormularioActivity extends AppCompatActivity {
 
         this.helper = FormularioHelper.create(this);
         this.helper.carregarAluno(this);
+        this.caminhoFoto = this.helper.retornarCaminhoFoto();
+        this.helper.selecionarParaFoto(this.caminhoFoto);
     }
 
     @Override
@@ -40,5 +41,12 @@ public class FormularioActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK && requestCode == PerifericoEnum.CAMERA.getValue()) {
+            helper.carregarImagem(caminhoFoto);
+        }
     }
 }

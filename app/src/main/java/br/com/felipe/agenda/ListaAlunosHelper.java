@@ -43,8 +43,8 @@ public class ListaAlunosHelper {
     }
 
     public void selecionarParaInsercao() {
-        final Button btnInserir = (Button) this.activity.findViewById(R.id.lista_aluno_btn_inserir);
-        btnInserir.setOnClickListener(new View.OnClickListener() {
+        final Button btn = (Button) this.activity.findViewById(R.id.lista_aluno_btn_inserir);
+        btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final Intent intent = new Intent(activity, FormularioActivity.class);

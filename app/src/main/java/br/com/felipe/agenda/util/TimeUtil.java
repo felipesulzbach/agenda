@@ -1,7 +1,5 @@
 package br.com.felipe.agenda.util;
 
-import android.text.format.DateUtils;
-
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -23,7 +21,8 @@ public class TimeUtil {
         DATE_BR("dd/MM/yyyy"),
         DATE_HOURMIN_BR("dd/MM/yyyy HH:mm"),
         DATE_HOURMINSEC_BR("dd/MM/yyyy HH:mm:ss"),
-        HOURMINSEC_BR("HH:mm:ss");
+        HOURMINSEC_BR("HH:mm:ss"),
+        DATE_HOURMINSEC_EUA("yyyyMMdd_HHmmss");
 
         private final String value;
 
@@ -68,10 +67,14 @@ public class TimeUtil {
         return outputFormat.parse(data);
     }
 
+    public static Timestamp dateToTimeStamp(final Date data, final DateEnum format) throws Exception {
+        final DateFormat outputFormat = new SimpleDateFormat(format.getValue());
+        return new Timestamp(data.getTime());
+    }
+
     public static Timestamp stringToTimeStamp(final String data, final DateEnum format) throws Exception {
         final DateFormat outputFormat = new SimpleDateFormat(format.getValue());
-        final Date date = outputFormat.parse(data);
-        return new Timestamp(date.getTime());
+        return dateToTimeStamp(outputFormat.parse(data), format);
     }
 
     public static boolean isSameDay(final Date date1, final Date date2) throws Exception {
