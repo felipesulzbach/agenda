@@ -4,18 +4,23 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.Date;
 
 import br.com.felipe.agenda.dao.AlunoDao;
 import br.com.felipe.agenda.model.Aluno;
 import br.com.felipe.agenda.util.AndroidUtil;
 import br.com.felipe.agenda.util.PerifericoEnum;
+import br.com.felipe.agenda.util.TimeUtil;
 
 /**
  * Created by felipe on 11/01/2017.
@@ -85,7 +90,7 @@ public class FormularioHelper {
             @Override
             public void onClick (View v){
                 final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(caminhoFoto)));
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(activity, BuildConfig.APPLICATION_ID + ".provider", new File(caminhoFoto)));
                 activity.startActivityForResult(intent, PerifericoEnum.CAMERA.getValue());
             }
         });
