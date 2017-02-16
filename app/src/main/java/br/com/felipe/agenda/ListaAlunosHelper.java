@@ -38,7 +38,10 @@ public class ListaAlunosHelper {
 
     public void carregarListaAluno(final ListView alunoList) {
         final AlunoDao dao = AlunoDao.create(this.activity);
-        alunoList.setAdapter(new ArrayAdapter<Aluno>(this.activity, android.R.layout.simple_list_item_1, dao.buscarAlunoList()));
+        final List<Aluno> alunolist = dao.buscarAlunoList();
+        //Adapter<Aluno> adapter = new ArrayAdapter<Aluno>(this.activity, R.layout.layout_lista_alunos, dao.buscarAlunoList());
+        AlunoAdapter adapter = AlunoAdapter.create(alunolist);
+        alunoList.setAdapter(adapter);
         dao.close();
     }
 
