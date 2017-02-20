@@ -43,6 +43,7 @@ toStringTemplates.xml
 ui.lnf.xml
 web-browsers.xml
 ide.general.xml
+filetypes.xml
 ehthumbs.db
 Thumbs.db
 local.properties
