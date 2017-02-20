@@ -1,8 +1,14 @@
 package br.com.felipe.agenda.adapter;
 
+import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
+
+import java.util.List;
+
+import br.com.felipe.agenda.model.Aluno;
 
 /**
  * Created by felipe on 15/02/2017.
