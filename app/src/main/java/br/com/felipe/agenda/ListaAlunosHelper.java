@@ -9,11 +9,13 @@ import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.List;
+
+import br.com.felipe.agenda.adapter.AlunoAdapter;
 import br.com.felipe.agenda.dao.AlunoDao;
 import br.com.felipe.agenda.model.Aluno;
 import br.com.felipe.agenda.util.TextUtil;
@@ -35,13 +37,9 @@ public class ListaAlunosHelper {
         return new ListaAlunosHelper(activity);
     }
 
-
     public void carregarListaAluno(final ListView alunoList) {
         final AlunoDao dao = AlunoDao.create(this.activity);
-        final List<Aluno> alunolist = dao.buscarAlunoList();
-        //Adapter<Aluno> adapter = new ArrayAdapter<Aluno>(this.activity, R.layout.layout_lista_alunos, dao.buscarAlunoList());
-        AlunoAdapter adapter = AlunoAdapter.create(alunolist);
-        alunoList.setAdapter(adapter);
+        alunoList.setAdapter(AlunoAdapter.create(activity, dao.buscarAlunoList()));
         dao.close();
     }
 

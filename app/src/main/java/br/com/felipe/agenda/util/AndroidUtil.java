@@ -3,9 +3,11 @@ package br.com.felipe.agenda.util;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.TextView;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -50,6 +52,14 @@ public class AndroidUtil {
 
     public static BigDecimal obterValorCampoBigDecimal(AppCompatActivity activity, final int id) {
         return new BigDecimal((obterComponenteRatingBar(activity, id)).getProgress());
+    }
+
+    public static TextView obterComponenteTextView(View view, final int id) {
+        return (TextView) view.findViewById(id);
+    }
+
+    public static ImageView obterComponenteImageView(View view, final int id) {
+        return (ImageView) view.findViewById(id);
     }
 
     public static void tratarExcecao(SQLException ex) {
